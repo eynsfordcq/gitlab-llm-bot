@@ -4,6 +4,7 @@ import uvicorn
 from helpers.payload_parser import parse_payload
 from helpers.gitlab_helper import get_project_issue_details, post_comments_to_issue
 from helpers.git_helper import clone_private_repo
+from helpers.repomap import analyze_repository
 from llm.openai import generate_response
 
 app = FastAPI()
@@ -26,8 +27,11 @@ async def gitlab_webhook(request: Request):
             issue_details.get('url')
         )
 
+        # get repomap
+        repo_map = analyze_repository(repo_path)
+
         # generate response
-        messages = generate_response(repo_path, issue_details)
+        messages = generate_response(repo_map, issue_details)
 
         # post comment to issue
         post_comments_to_issue(

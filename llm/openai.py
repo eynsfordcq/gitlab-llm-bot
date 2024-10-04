@@ -12,9 +12,9 @@ openai.api_key = config.openai_api_key
 # TODO: 2. make function call loopable with max try 
 # TODO: 3. abstract generic functions like calling for response 
 # TODO: 4. make function calling dynamic by maintaining a callable function map
+# TODO: 5. add readme file as context
 
-def generate_response(repo_dir: str, issue):
-    repo_map = repomap.analyze_repository(repo_dir)
+def generate_response(repo_map, issue):
     issue_title = issue.get('issue_title')
     issue_description = issue.get('issue_description')
     

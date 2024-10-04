@@ -1,4 +1,5 @@
 import gitlab
+import json
 
 from configs import config
 
@@ -12,10 +13,11 @@ def get_project_issue_details(project_path, issue_iid) -> dict:
     issue = project.issues.get(issue_iid)
 
     return {
-        "id": project.id,
-        "default_branch": project.default_branch,
-        "url": project.http_url_to_repo,
+        "project_id": project.id,
+        "repo_default_branch": project.default_branch,
+        "repo_url": project.http_url_to_repo,
         "issue_title": issue.title,
+        "issue_id": issue.id,
         "issue_iid": issue.iid,
         "issue_description": issue.description,
         "issue_state": issue.state,
